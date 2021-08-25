@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 
+/*
+ * Montar uma lista de empregados e efetuar o aumento de salário de alguns.
+ * Exercício do tópico Lists.
+ */
+
 namespace Ex05POO
 {
     class Program
@@ -13,9 +18,9 @@ namespace Ex05POO
 
             List<Employee> list = new List<Employee>();
 
-            for (int i = 0; i < n; i++)
+            for (int i = 1; i <= n; i++)
             {
-                Console.WriteLine("Employee #{0}", i + 1);
+                Console.WriteLine("Employee #{0}", i);
                 Console.Write("Id: ");
                 int id = int.Parse(Console.ReadLine());
                 Console.Write("Name: ");
@@ -25,19 +30,36 @@ namespace Ex05POO
                 list.Add(new Employee(id, name, salary));
             }
 
-            Console.Write("Enter the employee ID that will have salary increased: ");
-            int iden = int.Parse(Console.ReadLine());
-            List<Employee> aumento = list.FindAll(delegate (Employee e) { return e.ID == iden; });
-            foreach (Employee e in aumento)
+            Console.WriteLine();
+
+            Console.WriteLine("How many employees will have salary increased? ");
+            int si = int.Parse(Console.ReadLine());
+            List<Employee> aumento = new List<Employee>();
+            for (int i = 0; i < si; i++)
             {
-                Console.WriteLine("Employee ID: {0}, Name: {1}.", e.ID, e.Name);
-                Console.WriteLine("Enter the percentage: ");
-                e.IncreaseSalary(double.Parse(Console.ReadLine()));
+                Console.Write("Enter the employee ID that will have salary increased: ");
+                int iden = int.Parse(Console.ReadLine());
+                Employee obj = list.Find(delegate (Employee e) { return e.ID == iden; });
+                aumento.Add(obj);
             }
+
+            Console.WriteLine();
 
             foreach (Employee e in aumento)
             {
-                Console.WriteLine(String.Format("{0} {1}", e.Name, e.Salary.ToString("F2", CultureInfo.InvariantCulture)));
+                Console.WriteLine("Employee ID: {0}, Name: {1}.", e.ID, e.Name);
+                Console.WriteLine();
+                Console.WriteLine("Enter the percentage: ");
+                e.IncreaseSalary(double.Parse(Console.ReadLine()));
+                Console.WriteLine(String.Format("Employee: {0}. New salary: ${1}.", e.Name, e.Salary.ToString("F2", CultureInfo.InvariantCulture)));
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Resume: ");
+            foreach (object obj in list)
+            {
+                Console.WriteLine(obj);
             }
         }
     }

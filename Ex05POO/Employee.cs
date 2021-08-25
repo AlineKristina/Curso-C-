@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Globalization;
 
 namespace Ex05POO
 {
@@ -27,6 +28,15 @@ namespace Ex05POO
             Salary *= (1+(percentage/100));
         }
 
+        public override string ToString()
+        {
+            return "Employee ID: "
+                + ID
+                + ", Name: "
+                + Name
+                + ", Salary: $"
+                + Salary.ToString("F2", CultureInfo.InvariantCulture);
+        }
 
     }
 }
